@@ -19,9 +19,9 @@ $(document).ready(function () {
 
     $("#chordSelector").change(pickChord);
     $("#subChordSelector").change(pickChord);
-    $("#prevButton").click(prevVar);
-    $("#nextButton").click(nextVar);
-    $("#playButton").click(playChord);
+    $(canvas).swiperight(prevVar);
+    $(canvas).swipeleft(nextVar);
+    $("#playButton").tap(playChord);
 
     resizeCanvas();
     soundInit();
@@ -35,8 +35,6 @@ $(document).ready(function () {
 
     function pickChord() {
         var noteInd;
-        $("#prevButton").addClass("ui-disabled");
-        $("#nextButton").addClass("ui-disabled");
         chord = $("select#chordSelector").val() + $("select#subChordSelector").val();
         var chordIndex = $.inArray(chord, chordsArray);
             
@@ -44,24 +42,21 @@ $(document).ready(function () {
         currentChordIndex = 0;
         setArray();
         $("#playButton").removeClass("ui-disabled");
-        if(chordVar.length > 1)
-           $("#nextButton").removeClass("ui-disabled"); 
+        $("#allVariants").removeClass("ui-disabled");
     }
 
     function prevVar() {
-        currentChordIndex--;
-        setArray();
-        if(currentChordIndex == 0)
-           $("#prevButton").addClass("ui-disabled");
-        $("#nextButton").removeClass("ui-disabled");  
+        if(currentChordIndex != 0) {
+            currentChordIndex--;
+            setArray();
+        }
     }
 
     function nextVar() {
-        currentChordIndex++;
-        setArray();
-        if(currentChordIndex == chordVar.length - 1)
-           $("#nextButton").addClass("ui-disabled"); 
-        $("#prevButton").removeClass("ui-disabled"); 
+        if(currentChordIndex != chordVar.length - 1) {
+            currentChordIndex++;
+            setArray();
+        } 
     }
 
     function buildChord() {
