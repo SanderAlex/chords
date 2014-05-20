@@ -137,6 +137,21 @@ h1 {
     background-color: white;
 }
 
+.canvasMini {
+    margin-left: 4px;
+    margin-bottom: 4px;
+    background-color: white;  
+}
+
+.picked {
+   background-color: #7df9ff; 
+}
+
 #mainButtons {
     text-align: center;
+}
+
+#allVars {
+    width: 100%;
+    float: left;
 }

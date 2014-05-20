@@ -21,7 +21,10 @@ $(document).ready(function () {
     $("#subChordSelector").change(pickChord);
     $(canvas).swiperight(prevVar);
     $(canvas).swipeleft(nextVar);
+    $(canvas).tap(playNote);
     $("#playButton").tap(playChord);
+    $("#allVariants").tap(varShow);
+
 
     resizeCanvas();
     soundInit();
@@ -41,6 +44,7 @@ $(document).ready(function () {
         chordVar = chordsArray[chordIndex + 1];
         currentChordIndex = 0;
         setArray();
+
         $("#playButton").removeClass("ui-disabled");
         $("#allVariants").removeClass("ui-disabled");
     }
@@ -79,12 +83,18 @@ $(document).ready(function () {
         }
     }
 
+    function playNote() {
+        var currentNote = Math.round(event.pageX/unitX);
+        $.ionSound.play(strings[currentNote - 1]);
+    }
+
     function setArray() {
         currentChord = chordVar[currentChordIndex];
         chordGrid = currentChord[0];
         fingers = currentChord[1];
         buildChord();
-        drawFinger(chordGrid, fingers);       
+        drawFinger(chordGrid, fingers);
+        drawNotes();       
     }
 
     function resizeCanvas() {
@@ -108,7 +118,7 @@ $(document).ready(function () {
             context.beginPath();
             context.moveTo(unitX, unitY);
             context.lineTo(unitX*6, unitY);
-            context.lineWidth = 10;
+            context.lineWidth = unitX/6;
             context.stroke();
             context.lineWidth = 1;
         }
@@ -141,7 +151,6 @@ $(document).ready(function () {
     function drawFinger(arr, fing) {
         var tab = 0;
         var min = 0;
-        var note;
         //проверяем позицию
         if(Math.max.apply(Math, arr) > 5) {
             min = 50;
@@ -186,11 +195,42 @@ $(document).ready(function () {
                     context.fillText(fing[i], unitX*i + unitX, (arr[i] - tab)*unitY + unitY - unitY/3, unitX*0.6);
                     context.fillStyle = "#000";
                 }
-                note = strings[i][0];
+            }    
+        }
+    }
+
+    function drawNotes() {
+        for(i = 0; i < strings.length; i++) {
+            if (strings[i] != null) {
+                var note = strings[i][0];
                 if(strings[i][1] == "d")
                     note += "#";
                 context.fillText(note, unitX*i + unitX, unitY*6.5, unitX*0.6);
-            }    
+            }
         }
+    }
+
+    function varShow() {
+        $("#allVars").empty();
+        var miniCanvas;
+        for(var i = 0; i < chordVar.length; i++) {
+            $("#allVars").append("<canvas class='canvasMini' id='" + i + "'></canvas>");
+            miniCanvas = document.getElementById(i);
+            context = miniCanvas.getContext('2d');
+            miniCanvas.width = window.innerWidth/3-4;
+            miniCanvas.height = miniCanvas.width;
+            unitX = miniCanvas.width/7;
+            unitY = miniCanvas.height/7;
+            drawFinger(chordVar[i][0], chordVar[i][1]);
+        }
+        $('#' + currentChordIndex).addClass("picked");
+        $(".canvasMini").tap(function() {
+            currentChordIndex = this.id;
+            setArray();
+            $.mobile.changePage("#mainPage");
+        });
+        context = canvas.getContext('2d');
+        unitX = canvas.width/7;
+        unitY = canvas.height/7;
     }
 });
