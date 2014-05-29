@@ -1,4 +1,3 @@
-var x = 0;
 $(document).ready(function() {
 
     $(document).bind('touchmove', function(e) {
@@ -20,8 +19,6 @@ $(document).ready(function() {
 
     var strings = ["E0","A0","D1","G1","B1","E2"];
 
-    // resize the canvas to fill browser window dynamically
-    //window.addEventListener('resize', resizeCanvas, false);
 
     $("#chordSelector").change(pickChord);
     $("#subChordSelector").change(pickChord);
@@ -33,10 +30,6 @@ $(document).ready(function() {
 
     chordsInit();
     resizeCanvas();
-    
-    context.font = unitY*0.5 + "px Arial";
-    context.fillText(x, unitX, unitY*6.5);
-    x++;
  
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -83,7 +76,7 @@ $(document).ready(function() {
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
-                $("#aud" + i).attr("src", "sound/"+strings[i]+".ogg");
+                $("#aud" + i).attr("src", "sound/"+strings[i]+".mp3");
             }
         }             
     }
