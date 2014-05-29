@@ -52,9 +52,8 @@ $(document).ready(function () {
 
         chordVar = chords[chord];
         currentChordIndex = 0;
-        //setArray();
-        context.font = unitY*0.5 + "px Arial";
-        context.fillText(chord, unitX, unitY*6.5);
+        setArray();
+
         $("#playButton").removeClass("ui-disabled");
         $("#allVariants").removeClass("ui-disabled");
     }
@@ -201,15 +200,14 @@ $(document).ready(function () {
     }
 
     function drawNotes() {
-        context.fillText(chord, unitX, unitY*6.5);
-        /*for(i = 0; i < strings.length; i++) {
+        for(i = 0; i < strings.length; i++) {
             if (strings[i] != null) {
                 var note = strings[i][0];
                 if(strings[i][1] == "d")
                     note += "#";
                 context.fillText(note, unitX*i + unitX, unitY*6.5, unitX*0.6);
             }
-        }*/
+        }
     }
 
     function varShow() {
