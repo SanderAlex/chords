@@ -6,10 +6,10 @@ $(document).ready(function () {
     var chord;
     var chordVar, currentChord, currentChordIndex, chordGrid, fingers;
 
-    var notes = ["E0", "F0", "Fd0", "G0", "G#0", "A0", "Ad0", "B0",
-                 "C1", "Cd1", "D1", "Dd1", "E1", "F1", "Fd1", "G1", "G#1", "A1", "Ad1", "B1",
-                 "C2", "Cd2", "D2", "Dd2", "E2", "F2", "Fd2", "G2", "G#2", "A2", "Ad2", "B2",
-                 "C3", "Cd3", "D3", "Dd3", "E3", "F3", "Fd3", "G3", "G#3", "A3", "Ad3", "B3",
+    var notes = ["E0", "F0", "Fd0", "G0", "Gd0", "A0", "Ad0", "B0",
+                 "C1", "Cd1", "D1", "Dd1", "E1", "F1", "Fd1", "G1", "Gd1", "A1", "Ad1", "B1",
+                 "C2", "Cd2", "D2", "Dd2", "E2", "F2", "Fd2", "G2", "Gd2", "A2", "Ad2", "B2",
+                 "C3", "Cd3", "D3", "Dd3", "E3", "F3", "Fd3", "G3", "Gd3", "A3", "Ad3", "B3",
                  "C4", "Cd4", "D4", "Dd4", "E4"];
 
     var strings = ["E0","A0","D1","G1","B1","E2"];
@@ -25,23 +25,32 @@ $(document).ready(function () {
     $("#playButton").tap(playChord);
     $("#allVariants").tap(varShow);
 
-
-    resizeCanvas();
+    chordsInit();
     soundInit();
-
-    function soundInit() {
+    resizeCanvas();
+ 
+     function soundInit() {
         $.ionSound({
             sounds: notes,
             path: "sound/" 
         });        
+    }  
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight * 0.75;
+        unitX = canvas.width/7;
+        unitY = canvas.height/7;
+        drawGuitar(0, 0);
+        for(i = 1; i <= 6; i++)
+            drawCross(i);      
     }
 
     function pickChord() {
         var noteInd;
         chord = $("select#chordSelector").val() + $("select#subChordSelector").val();
-        var chordIndex = $.inArray(chord, chordsArray);
-            
-        chordVar = chordsArray[chordIndex + 1];
+
+        chordVar = chords[chord];
         currentChordIndex = 0;
         setArray();
 
@@ -72,7 +81,7 @@ $(document).ready(function () {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
             }
-        }              
+        }             
     }
 
     function playChord() {
@@ -97,24 +106,14 @@ $(document).ready(function () {
         drawNotes();       
     }
 
-    function resizeCanvas() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight * 0.75;
-        unitX = canvas.width/7;
-        unitY = canvas.height/7;
-        drawGuitar(0);
-        for(i = 1; i <= 6; i++)
-            drawCross(i);      
-    }
-
-    function drawGuitar(min) { //отрисовка сетки грифа
+    function drawGuitar(min, max) { //отрисовка сетки грифа
         context.clearRect(0, 0, canvas.width, canvas.height);
         //основа
         context.beginPath();
         context.strokeRect(unitX, unitY, unitX*5, unitY*5);
 
         //отрисовка порожка
-        if(min < 5) {
+        if(max <= 5) {
             context.beginPath();
             context.moveTo(unitX, unitY);
             context.lineTo(unitX*6, unitY);
@@ -151,8 +150,9 @@ $(document).ready(function () {
     function drawFinger(arr, fing) {
         var tab = 0;
         var min = 0;
+        var max = Math.max.apply(Math, arr);
         //проверяем позицию
-        if(Math.max.apply(Math, arr) > 5) {
+        if(max > 5) {
             min = 50;
             for(i = 0; i < arr.length; i++) {
                 if(arr[i] != null && arr[i] != 0 && arr[i] < min)
@@ -160,7 +160,7 @@ $(document).ready(function () {
             }
             tab = min - 1;
         }
-        drawGuitar(min);
+        drawGuitar(min, max);
 
         for(i = 0; i < arr.length; i++) {
             //отрисовка баре
