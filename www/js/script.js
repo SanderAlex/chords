@@ -1,3 +1,4 @@
+var x = 0;
 $(document).ready(function() {
 
     $(document).bind('touchmove', function(e) {
@@ -20,7 +21,7 @@ $(document).ready(function() {
     var strings = ["E0","A0","D1","G1","B1","E2"];
 
     // resize the canvas to fill browser window dynamically
-    window.addEventListener('resize', resizeCanvas, false);
+    //window.addEventListener('resize', resizeCanvas, false);
 
     $("#chordSelector").change(pickChord);
     $("#subChordSelector").change(pickChord);
@@ -31,24 +32,20 @@ $(document).ready(function() {
     $("#allVariants").tap(varShow);
 
     chordsInit();
-    soundInit();
     resizeCanvas();
+    
+    context.font = unitY*0.5 + "px Arial";
+    context.fillText(x, unitX, unitY*6.5);
+    x++;
  
-     function soundInit() {
-        $.ionSound({
-            sounds: notes,
-            path: "sound/" 
-        });        
-    }  
-
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight * 0.75;
         unitX = canvas.width/7;
         unitY = canvas.height/7;
-        /*drawGuitar(0, 0);
+        drawGuitar(0, 0);
         for(i = 1; i <= 6; i++)
-            drawCross(i);*/      
+            drawCross(i);      
     }
 
     function pickChord() {
@@ -78,6 +75,7 @@ $(document).ready(function() {
     }
 
     function buildChord() {
+
         strings = ["E0","A0","D1","G1","B1","E2"];
         for(i = 0; i < chordGrid.length; i++) {
             if(chordGrid[i] == null)
@@ -85,6 +83,7 @@ $(document).ready(function() {
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
+                $("#aud" + i).attr("src", "sound/"+strings[i]+".mp3");
             }
         }             
     }
@@ -92,7 +91,7 @@ $(document).ready(function() {
     function playChord() {
         for(i = 0; i < chordGrid.length; i++) {
             if(chordGrid[i] != null) {
-                $.ionSound.play(strings[i]);
+                $("#aud" + i).get(0).play();
             }
         }
     }
