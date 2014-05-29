@@ -3,7 +3,7 @@ $(document).ready(function() {
     $(document).bind('touchmove', function(e) {
         e.preventDefault();
     });
-    
+
 	var canvas = document.getElementById('chordCanvas');
     var context = canvas.getContext('2d');
     var unitX;
@@ -46,9 +46,9 @@ $(document).ready(function() {
         canvas.height = window.innerHeight * 0.75;
         unitX = canvas.width/7;
         unitY = canvas.height/7;
-        drawGuitar(0, 0);
+        /*drawGuitar(0, 0);
         for(i = 1; i <= 6; i++)
-            drawCross(i);      
+            drawCross(i);*/      
     }
 
     function pickChord() {
@@ -58,7 +58,7 @@ $(document).ready(function() {
         chordVar = chords[chord];
         currentChordIndex = 0;
         setArray();
-        $.mobile.changePage("#mainPage");
+
         $("#playButton").removeClass("ui-disabled");
         $("#allVariants").removeClass("ui-disabled");
     }
