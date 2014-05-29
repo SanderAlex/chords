@@ -1,4 +1,9 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+    $(document).bind('touchmove', function(e) {
+        e.preventDefault();
+    });
+    
 	var canvas = document.getElementById('chordCanvas');
     var context = canvas.getContext('2d');
     var unitX;
@@ -53,7 +58,7 @@ $(document).ready(function () {
         chordVar = chords[chord];
         currentChordIndex = 0;
         setArray();
-
+        $.mobile.changePage("#mainPage");
         $("#playButton").removeClass("ui-disabled");
         $("#allVariants").removeClass("ui-disabled");
     }
