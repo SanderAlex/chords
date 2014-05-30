@@ -11,6 +11,8 @@ $(document).ready(function() {
     var chord;
     var chordVar, currentChord, currentChordIndex, chordGrid, fingers;
 
+    var myMedia = new Media("sound/C2.mp3");
+
     var notes = ["E0", "F0", "Fd0", "G0", "Gd0", "A0", "Ad0", "B0",
                  "C1", "Cd1", "D1", "Dd1", "E1", "F1", "Fd1", "G1", "Gd1", "A1", "Ad1", "B1",
                  "C2", "Cd2", "D2", "Dd2", "E2", "F2", "Fd2", "G2", "Gd2", "A2", "Ad2", "B2",
@@ -76,17 +78,18 @@ $(document).ready(function() {
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
-                $("#aud" + i).attr("src", "sound/"+strings[i]+".mp3");
+                //$("#aud" + i).attr("src", "sound/"+strings[i]+".mp3");
             }
         }             
     }
 
     function playChord() {
-        for(i = 0; i < chordGrid.length; i++) {
+        myMedia.play();
+        /*for(i = 0; i < chordGrid.length; i++) {
             if(chordGrid[i] != null) {
                 $("#aud" + i).get(0).play();
             }
-        }
+        }*/
     }
 
     function playNote() {
