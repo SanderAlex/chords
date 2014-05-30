@@ -79,7 +79,7 @@ $(document).ready(function() {
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
-                $("#str"+i).attr("src", "sound/"+strings[i]+".ogg"); 
+                $("#str"+i).attr("src", "sound/"+strings[i]+".mp3"); 
             }
         }          
     }
