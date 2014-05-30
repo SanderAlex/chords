@@ -31,16 +31,6 @@ $(document).ready(function() {
 
     chordsInit();
     resizeCanvas();
-    //soundInit();
-
-    function soundInit() {
-        $.ionSound({
-            sounds: notes,
-            path: "sound/",
-            multiPlay: true,
-            volume: "1"
-        });
-    }
  
     function resizeCanvas() {
         canvas.width = window.innerWidth;
@@ -89,28 +79,30 @@ $(document).ready(function() {
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
-                sound.push(strings[i]); 
+                $("#str"+i).attr("src", "sound/"+strings[i]+".ogg"); 
             }
-        }
-        $.ionSound({
-            sounds: sound,
-            path: "sound/",
-            multiPlay: true,
-            volume: "1"
-        });             
+        }          
     }
 
     function playChord() {
         for(i = 0; i < chordGrid.length; i++) {
             if(chordGrid[i] != null) {
-                $.ionSound.play(strings[i]);
+                $("#str"+i)[0].pause();
+                $("#str"+i)[0].currentTime = 0;
+                $("#str"+i)[0].play(); 
             }
         }
     }
 
     function playNote() {
-        var currentNote = Math.round(event.pageX/unitX);
-        $.ionSound.play(strings[currentNote - 1]);
+        for(i = 0; i < chordGrid.length; i++) {
+            if(chordGrid[i] != null) {
+                $("#str"+i)[0].pause();
+                $("#str"+i)[0].currentTime = 0;
+            }
+        }
+        var currentNote = Math.round(event.pageX/unitX) - 1;
+        $("#str"+currentNote)[0].play();
     }
 
     function setArray() {
