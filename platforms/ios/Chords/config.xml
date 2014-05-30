@@ -27,8 +27,5 @@
         Apache Cordova Team
     </author>
     <content src="index.html" />
-    <plugins>
-        <plugin name="Media" value="CDVSound" />
-    </plugins>
     <access origin="*" />
 </widget>

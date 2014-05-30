@@ -1,6 +1,15 @@
 var chords = new Object();
+var notes, strings;
 
 function chordsInit() {
+	notes = ["E0", "F0", "Fd0", "G0", "Gd0", "A0", "Ad0", "B0",
+                 "C1", "Cd1", "D1", "Dd1", "E1", "F1", "Fd1", "G1", "Gd1", "A1", "Ad1", "B1",
+                 "C2", "Cd2", "D2", "Dd2", "E2", "F2", "Fd2", "G2", "Gd2", "A2", "Ad2", "B2",
+                 "C3", "Cd3", "D3", "Dd3", "E3", "F3", "Fd3", "G3", "Gd3", "A3", "Ad3", "B3",
+                 "C4", "Cd4", "D4", "Dd4", "E4"];
+
+    strings = ["E0","A0","D1","G1","B1","E2"];
+
 	chords.Cmaj = [
 				   [[null, 3, 2, 0, 1, 0], [null, 3, 2, null, 1, null]],
 				   [[null, 3, 2, 0, 1, 3], [null, 3, 2, null, 1, 4]],

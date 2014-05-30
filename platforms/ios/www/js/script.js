@@ -1,9 +1,5 @@
 $(document).ready(function() {
 
-    $(document).bind('touchmove', function(e) {
-        e.preventDefault();
-    });
-    var sound = new Array;
 	var canvas = document.getElementById('chordCanvas');
     var context = canvas.getContext('2d');
     var unitX;
@@ -11,24 +7,12 @@ $(document).ready(function() {
     var chord;
     var chordVar, currentChord, currentChordIndex, chordGrid, fingers;
 
-    var notes = ["E0", "F0", "Fd0", "G0", "Gd0", "A0", "Ad0", "B0",
-                 "C1", "Cd1", "D1", "Dd1", "E1", "F1", "Fd1", "G1", "Gd1", "A1", "Ad1", "B1",
-                 "C2", "Cd2", "D2", "Dd2", "E2", "F2", "Fd2", "G2", "Gd2", "A2", "Ad2", "B2",
-                 "C3", "Cd3", "D3", "Dd3", "E3", "F3", "Fd3", "G3", "Gd3", "A3", "Ad3", "B3",
-                 "C4", "Cd4", "D4", "Dd4", "E4"];
-
-    var strings = ["E0","A0","D1","G1","B1","E2"];
-
-
     $("#chordSelector").change(pickChord);
     $("#subChordSelector").change(pickChord);
     $(canvas).swiperight(prevVar);
     $(canvas).swipeleft(nextVar);
-    //$(canvas).tap(playNote);
-    $("#playButton").tap(playChord);
     $("#allVariants").tap(varShow);
 
-    chordsInit();
     resizeCanvas();
  
     function resizeCanvas() {
@@ -69,39 +53,14 @@ $(document).ready(function() {
 
     function buildChord() {
         strings = ["E0","A0","D1","G1","B1","E2"];
-        for(i = 0; i < sound.length; i++) {
-            $.ionSound.kill(sound[i]);
-        }
         for(i = 0; i < chordGrid.length; i++) {
             if(chordGrid[i] == null)
                 strings[i] = null;
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
-                $("#str"+i).attr("src", "sound/"+strings[i]+".mp3"); 
             }
         }          
-    }
-
-    function playChord() {
-        for(i = 0; i < 6; i++) {
-            //if(chordGrid[i] != null) {
-                $("#str"+i)[0].pause();
-                $("#str"+i)[0].currentTime = 0;
-                $("#str"+i)[0].play(); 
-            //}
-        }
-    }
-
-    function playNote() {
-        for(i = 0; i < chordGrid.length; i++) {
-            if(chordGrid[i] != null) {
-                $("#str"+i)[0].pause();
-                $("#str"+i)[0].currentTime = 0;
-            }
-        }
-        var currentNote = Math.round(event.pageX/unitX) - 1;
-        $("#str"+currentNote)[0].play();
     }
 
     function setArray() {
