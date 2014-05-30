@@ -13,7 +13,6 @@
 
 <script src="js/jqm.js"></script>
 <script src="js/jquery.mobile-1.4.2.js"></script>
-<script src="js/ion.sound.min.js"></script>
 <script src="js/chords.js"></script>
 <script src="js/script.js"></script>
 
@@ -53,16 +52,34 @@
             </div>
 
             <div data-role="controlgroup" data-type="horizontal" id="mainButtons">
-                <a href="#" data-role="button" class="ui-disabled" id="playButton">PLAY</a>
+                <a href="#" data-role="button" id="playButton">PLAY</a>
                 <a href="#variants" data-role="button" class="ui-disabled" id="allVariants">All Variants</a>
             </div>
 
-            <audio id='str0'></audio>
-            <audio id='str1'></audio>
-            <audio id='str2'></audio>
-            <audio id='str3'></audio>
-            <audio id='str4'></audio>
-            <audio id='str5'></audio>
+            <audio id='str0'>
+                <source src="sound/E0.mp3" type="audio/mpeg">
+                <source src="sound/E0.ogg" type='audio/ogg; codecs=vorbis'>
+            </audio>
+            <audio id='str1'>
+                <source src="sound/A0.mp3" type="audio/mpeg">
+                <source src="sound/A0.ogg" type='audio/ogg; codecs=vorbis'>
+            </audio>
+            <audio id='str2'>
+                <source src="sound/D1.mp3" type="audio/mpeg">
+                <source src="sound/D1.ogg" type='audio/ogg; codecs=vorbis'>
+            </audio>
+            <audio id='str3'>
+                <source src="sound/G1.mp3" type="audio/mpeg">
+                <source src="sound/G1.ogg" type='audio/ogg; codecs=vorbis'>
+            </audio>
+            <audio id='str4'>
+                <source src="sound/B1.mp3" type="audio/mpeg">
+                <source src="sound/B1.ogg" type='audio/ogg; codecs=vorbis'>
+            </audio>
+            <audio id='str5'>
+                <source src="sound/E2.mp3" type="audio/mpeg">
+                <source src="sound/E2.ogg" type='audio/ogg; codecs=vorbis'>
+            </audio>
         </div>
 
         <div data-role="page" data-theme="b" id="variants">

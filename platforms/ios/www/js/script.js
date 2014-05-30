@@ -3,7 +3,6 @@ $(document).ready(function() {
     $(document).bind('touchmove', function(e) {
         e.preventDefault();
     });
-
     var sound = new Array;
 	var canvas = document.getElementById('chordCanvas');
     var context = canvas.getContext('2d');
@@ -25,7 +24,7 @@ $(document).ready(function() {
     $("#subChordSelector").change(pickChord);
     $(canvas).swiperight(prevVar);
     $(canvas).swipeleft(nextVar);
-    $(canvas).tap(playNote);
+    //$(canvas).tap(playNote);
     $("#playButton").tap(playChord);
     $("#allVariants").tap(varShow);
 
@@ -85,12 +84,12 @@ $(document).ready(function() {
     }
 
     function playChord() {
-        for(i = 0; i < chordGrid.length; i++) {
-            if(chordGrid[i] != null) {
+        for(i = 0; i < 6; i++) {
+            //if(chordGrid[i] != null) {
                 $("#str"+i)[0].pause();
                 $("#str"+i)[0].currentTime = 0;
                 $("#str"+i)[0].play(); 
-            }
+            //}
         }
     }
 
