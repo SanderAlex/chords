@@ -5,14 +5,15 @@
 
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=false" />
+
 <link rel="stylesheet" href="css/jquery.mobile-1.4.2.css" />
 <link rel="stylesheet" href="css/jquery.mobile.icons.min.css" />
 <link rel="stylesheet" href="css/index.css" />
 
 <script src="js/jqm.js"></script>
 <script src="js/jquery.mobile-1.4.2.js"></script>
-<script src="js/ion.sound.min.js"></script>
+<script type="text/javascript" src="js/ion.sound.min.js"></script>
 <script src="js/chords.js"></script>
 <script src="js/script.js"></script>
 
@@ -33,6 +34,8 @@
                         <option value="Fd">F#</option>
                         <option value="G">G</option>
                         <option value="Gd">G#</option>
+                        <option value="A">A</option>
+                        <option value="Ad">A#</option>
                         <option value="B">B</option>
                         <option value="Bd">B#</option>
                     </select>
@@ -48,6 +51,7 @@
                 <canvas id="chordCanvas">
                 </canvas>
             </div>
+
             <div data-role="controlgroup" data-type="horizontal" id="mainButtons">
                 <a href="#" data-role="button" class="ui-disabled" id="playButton">PLAY</a>
                 <a href="#variants" data-role="button" class="ui-disabled" id="allVariants">All Variants</a>
