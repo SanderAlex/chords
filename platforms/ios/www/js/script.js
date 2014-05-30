@@ -4,6 +4,7 @@ $(document).ready(function() {
         e.preventDefault();
     });
 
+    var sound = new Array;
 	var canvas = document.getElementById('chordCanvas');
     var context = canvas.getContext('2d');
     var unitX;
@@ -30,7 +31,7 @@ $(document).ready(function() {
 
     chordsInit();
     resizeCanvas();
-    soundInit();
+    //soundInit();
 
     function soundInit() {
         $.ionSound({
@@ -79,14 +80,24 @@ $(document).ready(function() {
 
     function buildChord() {
         strings = ["E0","A0","D1","G1","B1","E2"];
+        for(i = 0; i < sound.length; i++) {
+            $.ionSound.kill(sound[i]);
+        }
         for(i = 0; i < chordGrid.length; i++) {
             if(chordGrid[i] == null)
                 strings[i] = null;
             else {
                 noteInd = $.inArray(strings[i], notes);
                 strings[i] = notes[noteInd + chordGrid[i]];
+                sound.push(strings[i]); 
             }
-        }             
+        }
+        $.ionSound({
+            sounds: sound,
+            path: "sound/",
+            multiPlay: true,
+            volume: "1"
+        });             
     }
 
     function playChord() {
