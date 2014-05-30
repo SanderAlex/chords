@@ -1,4 +1,9 @@
-$(document).ready(function () {
+$(document).ready(function() {
+
+    $(document).bind('touchmove', function(e) {
+        e.preventDefault();
+    });
+
 	var canvas = document.getElementById('chordCanvas');
     var context = canvas.getContext('2d');
     var unitX;
@@ -14,8 +19,6 @@ $(document).ready(function () {
 
     var strings = ["E0","A0","D1","G1","B1","E2"];
 
-    // resize the canvas to fill browser window dynamically
-    window.addEventListener('resize', resizeCanvas, false);
 
     $("#chordSelector").change(pickChord);
     $("#subChordSelector").change(pickChord);
@@ -26,16 +29,18 @@ $(document).ready(function () {
     $("#allVariants").tap(varShow);
 
     chordsInit();
-    soundInit();
     resizeCanvas();
- 
-     function soundInit() {
+    soundInit();
+
+    function soundInit() {
         $.ionSound({
             sounds: notes,
-            path: "sound/" 
-        });        
-    }  
-
+            path: "sound/",
+            multiPlay: true,
+            volume: "1"
+        });
+    }
+ 
     function resizeCanvas() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight * 0.75;
