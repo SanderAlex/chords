@@ -83,7 +83,7 @@ $(document).ready(function() {
             context.beginPath();
             context.moveTo(unitX, unitY);
             context.lineTo(unitX*6, unitY);
-            context.lineWidth = unitX/6;
+            context.lineWidth = unitX/20;
             context.stroke();
             context.lineWidth = 1;
         }
